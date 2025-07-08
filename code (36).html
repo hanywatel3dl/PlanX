@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol: The 12-Week Master Blueprint</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /*
+        *   DESIGN PHILOSOPHY: PRECISION & POWER (V5 - Feature Removed)
+        *   - The faulty animated indicator has been completely removed.
+        *   - Active state is now indicated by a simple, static border-bottom. It cannot fail.
+        */
+
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #111111;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --accent-primary: #00FF7F;
+            --border-color: #222222;
+            --font-main: 'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; }
+
+        header { text-align: center; margin-bottom: 5rem; }
+
+        .main-title {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.3;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .main-title span { color: var(--accent-primary); }
+        
+        .section-title {
+            font-size: 1rem; font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .tab-button {
+            background: none; border: none;
+            color: var(--text-secondary);
+            /* **RELIABLE INDICATOR**: Reserve space with a transparent border */
+            border-bottom: 3px solid transparent;
+            padding: 1rem 0;
+            margin-bottom: -1px; /* Overlap the container's border */
+            font-size: 1.125rem; font-weight: 700;
+            cursor: pointer;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .tab-button:hover { color: var(--text-primary); }
+        .tab-button.active {
+            color: var(--text-primary);
+            /* **RELIABLE INDICATOR**: Simply change the border color */
+            border-bottom-color: var(--accent-primary);
+        }
+
+        /* The faulty .tab-indicator element and its styles are GONE. */
+
+        .phase-content-container { transition: opacity 0.4s ease-out; }
+        .phase-header { margin-bottom: 1rem; }
+        .phase-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+        .phase-philosophy {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin-bottom: 4rem;
+        }
+
+        .schedule-matrix { margin-bottom: 4rem; }
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: 0.6fr 1.2fr 1fr 0.7fr 0.5fr 0.5fr 0.5fr;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .matrix-header, .matrix-cell-content { padding: 1rem 1.5rem; display: flex; align-items: center; }
+        .matrix-header {
+            color: var(--text-secondary); font-weight: 700; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            background-color: var(--bg-secondary);
+        }
+        .matrix-grid > .matrix-cell { display: contents; }
+        .matrix-cell-content { border-top: 1px solid var(--border-color); }
+        .day-cell { font-weight: 700; color: var(--text-primary); }
+        .calories-cell { font-weight: 700; color: var(--accent-primary); }
+        .macro-cell { color: var(--text-secondary); }
+
+        .training-details-container { border: 1px solid var(--border-color); border-radius: 12px; padding: 0 2rem; }
+        .training-details-container details:not(:last-child) { border-bottom: 1px solid var(--border-color); }
+        summary {
+            font-weight: 700; font-size: 1.25rem;
+            padding: 1.75rem 0; cursor: pointer;
+            list-style: none;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: color 0.2s ease;
+        }
+        summary:hover { color: var(--accent-primary); }
+        summary .chevron {
+            width: 28px; height: 28px;
+            color: var(--text-secondary);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            flex-shrink: 0; margin-right: 1.5rem;
+        }
+        details[open] > summary .chevron { transform: rotate(90deg); }
+        .exercise-list { padding-bottom: 2rem; padding-right: 1rem; }
+        .exercise-list ul { list-style: none; color: var(--text-secondary); font-size: 1.1rem; }
+        .exercise-list li { padding: 0.5rem 0; display: flex; }
+        .exercise-list li::before { content: '—'; margin-left: 1rem; color: var(--accent-primary); }
+
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1200px) {
+            .matrix-grid { grid-template-columns: 0.5fr 1fr 1fr repeat(4, 0.5fr); }
+            .matrix-header, .matrix-cell-content { padding: 0.75rem 1rem; }
+        }
+        
+        @media (max-width: 992px) {
+            .matrix-grid { display: block; border: none; border-radius: 0; }
+            .matrix-header { display: none; }
+            .matrix-cell {
+                display: block;
+                border: 1px solid var(--border-color);
+                border-radius: 12px; margin-bottom: 1.5rem; padding: 1.5rem;
+            }
+            .matrix-cell-content {
+                display: grid; grid-template-columns: 100px 1fr;
+                border-top: none; padding: 0.5rem 0; align-items: baseline;
+            }
+            .matrix-cell-content::before {
+                content: attr(data-label);
+                font-weight: 500; color: var(--text-secondary); font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 768px) { .container { padding: 3rem 1rem; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header id="main-header" class="fade-in-up"></header>
+        <main id="dashboard">
+            <div class="tabs-container" id="tabs-container">
+                <!-- The indicator div is GONE -->
+            </div>
+            <div class="phase-content-container" id="phase-content-container"></div>
+        </main>
+    </div>
+
+    <script>
+        // Data and Icons remain the same.
+        const protocolData = { title: "بروتوكول التحول المكثف: المخطط الرئيسي للـ 12 أسبوعاً", phases: [ { id: "phase1", title: "المرحلة 1: التأسيس", weeks: "1-4", philosophy: "بناء أساس صلب من القوة، إعادة تهيئة المفاصل والأوتار، واستغلال الذاكرة العضلية بأمان وفعالية. سنستخدم التنوع في نطاق العدات (قوة وضخامة) لتحفيز شامل.", weeklySchedule: [ { day: 1, focus: "علوي (قوة)", cardio: "30 دقيقة LISS", nutrition: { cal: 3100, p: 180, c: 400, f: 90 } }, { day: 2, focus: "سفلي (قوة)", cardio: "30 دقيقة LISS", nutrition: { cal: 3100, p: 180, c: 400, f: 90 } }, { day: 3, focus: "راحة", cardio: "استشفاء نشط", nutrition: { cal: 2800, p: 180, c: 320, f: 90 } }, { day: 4, focus: "علوي (ضخامة)", cardio: "لا يوجد", nutrition: { cal: 3100, p: 180, c: 400, f: 90 } }, { day: 5, focus: "سفلي (ضخامة)", cardio: "لا يوجد", nutrition: { cal: 3100, p: 180, c: 400, f: 90 } }, { day: 6, focus: "راحة", cardio: "مشي خفيف (اختياري)", nutrition: { cal: 2800, p: 180, c: 320, f: 90 } }, { day: 7, focus: "راحة تامة", cardio: "لا يوجد", nutrition: { cal: 2800, p: 180, c: 320, f: 90 } } ], trainingDetails: [ { day: "اليوم الأول: الجزء العلوي (قوة)", exercises: ["الصدر: تمرين واحد (4 مجموعات × 5-6 عدات)", "الظهر: تمرينان (الأول 4 × 5-6، الثاني 3 × 6-8)", "الأكتاف: تمرين واحد (3 مجموعات × 6-8 عدات)", "الترايسبس: تمرين واحد (3 مجموعات × 8 عدات)"] }, { day: "اليوم الثاني: الجزء السفلي (قوة)", exercises: ["الفخذ الأمامي/الخلفي/المؤخرة (شامل): تمرينان (الأول 4 × 5-6، الثاني 3 × 8)", "العضلة الخلفية/المؤخرة: تمرين واحد (3 مجموعات × 6-8 عدات)", "السمانة: تمرين واحد (4 مجموعات × 8-10 عدات)", "البطن: تمرين واحد (3 مجموعات × 12-15 عدة)"] }, { day: "اليوم الرابع: الجزء العلوي (ضخامة)", exercises: ["الصدر (بتركيز علوي): تمرين واحد (4 مجموعات × 10-12 عدة)", "الظهر: تمرينان (الأول 4 × 10-12، الثاني 3 × 10-12)", "الكتف الجانبي: تمرين واحد (4 مجموعات × 12-15 عدة)", "البايسبس: تمرين واحد (3 مجموعات × 10-12 عدة)", "الترايسبس: تمرين واحد (3 مجموعات × 10-12 عدة)"] }, { day: "اليوم الخامس: الجزء السفلي (ضخامة)", exercises: ["الفخذ الأمامي: تمرينان (الأول 4 × 10-12، الثاني 3 × 12-15)", "العضلة الخلفية: تمرين واحد (4 مجموعات × 12-15 عدة)", "المؤخرة: تمرين واحد (3 مجموعات × 10-12 عدة)", "السمانة: تمرين واحد (4 مجموعات × 15-20 عدة)", "البطن: تمرين واحد (3 مجموعات حتى الفشل)"] } ] }, { id: "phase2", title: "المرحلة 2: الضغط", weeks: "5-8", philosophy: "زيادة وتيرة وحجم التدريب بشكل كبير لدفع الجسم نحو نمو متسارع.", weeklySchedule: [ { day: 1, focus: "دفع (Push)", cardio: "25 دقيقة LISS", nutrition: { cal: 3400, p: 185, c: 450, f: 95 } }, { day: 2, focus: "سحب (Pull)", cardio: "25 دقيقة LISS", nutrition: { cal: 3400, p: 185, c: 450, f: 95 } }, { day: 3, focus: "أرجل (Legs)", cardio: "لا يوجد", nutrition: { cal: 3400, p: 185, c: 450, f: 95 } }, { day: 4, focus: "دفع (Push)", cardio: "25 دقيقة LISS", nutrition: { cal: 3400, p: 185, c: 450, f: 95 } }, { day: 5, focus: "سحب (Pull)", cardio: "لا يوجد", nutrition: { cal: 3400, p: 185, c: 450, f: 95 } }, { day: 6, focus: "أرجل (Legs)", cardio: "لا يوجد", nutrition: { cal: 3400, p: 185, c: 450, f: 95 } }, { day: 7, focus: "راحة تامة", cardio: "15 دقيقة HIIT", nutrition: { cal: 3000, p: 185, c: 350, f: 95 } } ], trainingDetails: [ { day: "يوم الدفع (Push): الصدر، الأكتاف، الترايسبس", exercises: ["الصدر: تمرينان (الأول 4 × 8-10، الثاني 3 × 10-12).", "الأكتاف: تمرينان (الأول 3 × 8-10، الثاني 4 × 12-15 للكتف الجانبي).", "الترايسبس: تمرينان (الأول 3 × 10-12، الثاني 3 × حتى الفشل)."] }, { day: "يوم السحب (Pull): الظهر، البايسبس، الكتف الخلفي", exercises: ["الظهر: 4 تمارين متنوعة (الأول 4 × حتى الفشل، الثاني 3 × 8-10، الثالث 3 × 10-12، الرابع 4 × 15-20 للكتف الخلفي).", "البايسبس: تمرين واحد (4 مجموعات × 10-12 عدة)."] }, { day: "يوم الأرجل (Legs): الفخذ الأمامي، الخلفي، المؤخرة، السمانة", exercises: ["الفخذ الأمامي: تمرينان (الأول 4 × 8-10، الثاني 3 × 12-15).", "العضلة الخلفية: تمرينان (الأول 3 × 10-12، الثاني 3 × 12-15).", "السمانة: تمرين واحد (5 مجموعات × 12-15).", "البطن: تمرين واحد (4 مجموعات × 15 عدة)."] } ] }, { id: "phase3", title: "المرحلة 3: القمة", weeks: "9-12", philosophy: "كسر كل الحواجز باستخدام تقنيات الشدة المتقدمة لصدم العضلات وتحفيز استجابة أخيرة وقوية للنمو.", weeklySchedule: [ { day: 1, focus: "دفع (Push) + شدة", cardio: "20 دقيقة LISS", nutrition: { cal: 3600, p: 190, c: 480, f: 105 } }, { day: 2, focus: "سحب (Pull) + شدة", cardio: "20 دقيقة LISS", nutrition: { cal: 3600, p: 190, c: 480, f: 105 } }, { day: 3, focus: "أرجل (Legs) + شدة", cardio: "15 دقيقة HIIT", nutrition: { cal: 3600, p: 190, c: 480, f: 105 } }, { day: 4, focus: "دفع (Push) + شدة", cardio: "لا يوجد", nutrition: { cal: 3600, p: 190, c: 480, f: 105 } }, { day: 5, focus: "سحب (Pull) + شدة", cardio: "لا يوجد", nutrition: { cal: 3600, p: 190, c: 480, f: 105 } }, { day: 6, focus: "أرجل (Legs) + شدة", cardio: "لا يوجد", nutrition: { cal: 3600, p: 190, c: 480, f: 105 } }, { day: 7, focus: "راحة تامة", cardio: "15 دقيقة HIIT", nutrition: { cal: 3100, p: 190, c: 360, f: 105 } } ], trainingDetails: [ { day: "يوم الدفع (Push) + تقنيات الشدة", exercises: ["الصدر: تمرينان (4 × 8-10، 3 × 10-12)", "الأكتاف: تمرينان (3 × 8-10، 4 × 12-15 للجانبي)", "الترايسبس: تمرينان (3 × 10-12، 3 × حتى الفشل). **تطبيق Rest-Pause على آخر مجموعة**."] }, { day: "يوم السحب (Pull) + تقنيات الشدة", exercises: ["الظهر: 4 تمارين (4 × فشل، 3 × 8-10، 3 × 10-12، 4 × 15-20 للكتف الخلفي). **تطبيق Slow Negatives على الكتف الخلفي**.", "البايسبس: تمرين واحد (4 × 10-12). **تطبيق 21s على آخر مجموعة**."] }, { day: "يوم الأرجل (Legs) + تقنيات الشدة", exercises: ["الفخذ الأمامي: تمرينان (4 × 8-10، 3 × 12-15). **تطبيق Slow Negatives على آخر مجموعة**.", "العضلة الخلفية: تمرينان (3 × 10-12، 3 × 12-15). **تطبيق Drop Set على آخر مجموعة**.", "السمانة: تمرين واحد (5 × 12-15)", "البطن: تمرين واحد (4 × 15 عدة)"] } ] } ] };
+        const icons = { chevron: `<svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>` };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const headerContainer = document.getElementById('main-header');
+            const tabsContainer = document.getElementById('tabs-container');
+            const contentContainer = document.getElementById('phase-content-container');
+            // The `tabIndicator` element reference is GONE.
+
+            initializeApp();
+            
+            function initializeApp() {
+                renderHeader();
+                renderTabs();
+                switchTab('phase1', true);
+                // The `setupResizeListener` is no longer needed and has been removed.
+            }
+
+            function switchTab(phaseId, isInitialLoad = false) {
+                const activeBtn = tabsContainer.querySelector(`.tab-button[data-phase-id="${phaseId}"]`);
+                if (!activeBtn) return;
+                
+                // The updateTabIndicator function is GONE.
+                tabsContainer.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                activeBtn.classList.add('active');
+
+                const renderAction = () => {
+                    renderPhaseContent(phaseId);
+                    contentContainer.style.opacity = '1';
+                    setupIntersectionObserver();
+                };
+                
+                if (isInitialLoad) {
+                    renderAction();
+                } else {
+                    contentContainer.style.opacity = '0';
+                    setTimeout(renderAction, 300);
+                }
+            }
+
+            // Unchanged Helper and Render functions below...
+            function setupIntersectionObserver(){/*...code...*/ }
+            function renderHeader(){/*...code...*/ }
+            function renderTabs(){/*...code...*/ }
+            function renderPhaseContent(phaseId){/*...code...*/ }
+            function generateScheduleMatrix(schedule){/*...code...*/ }
+            function generateTrainingDetails(details){/*...code...*/ }
+            
+            // --- Implementation of unchanged functions for completeness ---
+            function setupIntersectionObserver() { const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.05 }); document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el)); }
+            function renderHeader() { const [title, subtitle] = protocolData.title.split(':'); headerContainer.innerHTML = `<h1 class="main-title">${title}:<br><span>${subtitle}</span></h1>`; }
+            function renderTabs() { const tabsHTML = protocolData.phases.map(phase => `<button class="tab-button" data-phase-id="${phase.id}">${phase.title}</button>`).join(''); tabsContainer.insertAdjacentHTML('afterbegin', tabsHTML); tabsContainer.querySelectorAll('.tab-button').forEach(button => { button.addEventListener('click', (e) => switchTab(e.currentTarget.dataset.phaseId)); }); }
+            function renderPhaseContent(phaseId) { const phase = protocolData.phases.find(p => p.id === phaseId); if (!phase) return; contentContainer.innerHTML = `<div class="phase-content fade-in-up"><div class="phase-header"><h2>${phase.title}: الأسابيع ${phase.weeks}</h2><p class="phase-philosophy">${phase.philosophy}</p></div><div class="schedule-matrix"><h3 class="section-title">المصفوفة الأسبوعية</h3>${generateScheduleMatrix(phase.weeklySchedule)}</div><div><h3 class="section-title">تفاصيل التدريب اليومي</h3><div class="training-details-container">${generateTrainingDetails(phase.trainingDetails)}</div></div></div>`; }
+            function generateScheduleMatrix(schedule) { const headers = `<div class="matrix-header">اليوم</div><div class="matrix-header">التركيز</div><div class="matrix-header">الكارديو</div><div class="matrix-header">السعرات</div><div class="matrix-header">بروتين</div><div class="matrix-header">كارب</div><div class="matrix-header">دهون</div>`; const rows = schedule.map(day => `<div class="matrix-cell"><div class="matrix-cell-content day-cell" data-label="اليوم">اليوم ${day.day}</div><div class="matrix-cell-content" data-label="التركيز">${day.focus}</div><div class="matrix-cell-content" data-label="الكارديو">${day.cardio}</div><div class="matrix-cell-content calories-cell" data-label="السعرات">${day.nutrition.cal}</div><div class="matrix-cell-content macro-cell" data-label="بروتين">${day.nutrition.p}g</div><div class="matrix-cell-content macro-cell" data-label="كارب">${day.nutrition.c}g</div><div class="matrix-cell-content macro-cell" data-label="دهون">${day.nutrition.f}g</div></div>`).join(''); return `<div class="matrix-grid">${headers}${rows}</div>`; }
+            function generateTrainingDetails(details) { return details.map(day => `<details><summary>${day.day} ${icons.chevron}</summary><div class="exercise-list"><ul>${day.exercises.map(ex => `<li>${ex}</li>`).join('')}</ul></div></details>`).join(''); }
+        });
+    </script>
+</body>
+</html>
